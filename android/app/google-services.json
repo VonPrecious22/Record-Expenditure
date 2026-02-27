@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "402260185020",
+    "project_id": "recordexpenditure",
+    "storage_bucket": "recordexpenditure.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402260185020:android:5c16863ac4f343734065b9",
+        "android_client_info": {
+          "package_name": "com.example.recordexpenditure"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVn9w7RQFvDQCCr_emvmOFXQrwMsAEJcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
