@@ -538,11 +538,14 @@ class _MenupageState extends State<Menupage> {
                                             color: tx['amount'] < 0
                                                 ? Colors.red
                                                 : Colors.green,
+                                                
                                           ),
                                         ),
                                         title: Text(
+                                          
                                           tx['description'],
                                           style: const TextStyle(
+                                          
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
