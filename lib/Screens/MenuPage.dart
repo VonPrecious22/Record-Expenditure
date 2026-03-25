@@ -519,7 +519,7 @@ class _MenupageState extends State<Menupage> {
                                         )));
                                   },
                                   child: Card(
-                                    elevation: 4,
+                                    elevation: 6,
                                     margin: const EdgeInsets.symmetric(vertical: 6),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12),
