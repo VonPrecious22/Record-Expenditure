@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:recordexpenditure/Screens/Color.dart';
 import 'package:recordexpenditure/Screens/CustomWidget.dart';
 
 class Forgotpassword extends StatefulWidget {
-   Forgotpassword({super.key});
+   const Forgotpassword({super.key});
 
   @override
   State<Forgotpassword> createState() => _ForgotpasswordState();
@@ -13,7 +13,7 @@ class Forgotpassword extends StatefulWidget {
 class _ForgotpasswordState extends State<Forgotpassword> {
  final TextEditingController useremailcontroller = TextEditingController();
 
-  
+  @override
    void dispose(){
     useremailcontroller.dispose();
     super.dispose();
@@ -24,16 +24,18 @@ class _ForgotpasswordState extends State<Forgotpassword> {
       final email = useremailcontroller.text.trim();
       try{
     await FirebaseAuth.instance.sendPasswordResetEmail(email:email);
-    showDialog(context: context, builder: (context)
-    {
-      return AlertDialog(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        content: Text('Password reset link sent! Check your email',style: TextStyle(color: Colors.black),),
-      );
+       ScaffoldMessenger.of(context).showSnackBar(
+      
+        SnackBar(
+          backgroundColor: CustomColor.primaryColor,
+        content: AnimatedContainer(
+          duration: Duration(
+            microseconds: 1
+          ), child: Text('Password resest. check your email!!')),));
+      
     }
-    );
-  }
+    
+  
   on FirebaseAuthException catch (e){
     print(e);
     showDialog(
@@ -49,8 +51,10 @@ class _ForgotpasswordState extends State<Forgotpassword> {
     @override
  
   Widget build(BuildContext context) {
-     double ScreenWidth = MediaQuery.of(context).size.width;
-    double ScreenHeight = MediaQuery.of(context).size.height;
+   final screenWidth  = MediaQuery.sizeOf(context).width;
+  final screenHeight = MediaQuery.sizeOf(context).height;
+  final orientation  = MediaQuery.of(context).orientation;
+  final paddingBottom = MediaQuery.of(context).padding.bottom;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -103,7 +107,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
           ),
           ),
           SizedBox(height: 16,),
-          CustomButton(text: 'Reset Password', ontap: passwordReset)
+          CustomButton(text: 'Reset Password', ontap: passwordReset,)
         
           ],
         ),

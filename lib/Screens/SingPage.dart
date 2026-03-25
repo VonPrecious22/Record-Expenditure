@@ -1,9 +1,11 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:recordexpenditure/Screens/BottomNavigationPage.dart';
 import 'package:recordexpenditure/Screens/Color.dart';
 import 'package:recordexpenditure/Screens/CustomWidget.dart';
 import 'package:recordexpenditure/Screens/ForgotPassword.dart';
-import 'package:recordexpenditure/Screens/MenuPage.dart';
 import 'package:recordexpenditure/Screens/SignUp.dart';
 
 class Singpage extends StatefulWidget {
@@ -24,12 +26,20 @@ class _SingpageState extends State<Singpage> {
       return massagebar('Please fill in the form', context);
     } 
     try{
-  await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-  massagebar('Successfully Login', context);
-  Navigator.push(context, MaterialPageRoute(builder: (context)=>Menupage()));
+  await FirebaseAuth.instance.signInWithEmailAndPassword(
+    email: email, 
+    password: password
+    );
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: CustomColor.primaryColor,
+      content: Text('Login Successfully')));
+  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Bottomnavigationpage()),
+  (route) => false);
     }
     on FirebaseAuthException catch(e){
-      massagebar(e.toString(), context);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: CustomColor.primaryColor,
+      content: Text(' Unable to Login, Wrong password!!')));
     }
 
   }
@@ -39,9 +49,14 @@ class _SingpageState extends State<Singpage> {
   final TextEditingController useremailcontroller = TextEditingController();
   final TextEditingController userpassword = TextEditingController();
   @override
+  void dispose (){
+    useremailcontroller.dispose();
+    userpassword.dispose();
+    super.dispose();
+  }
   Widget build(BuildContext context) {
-     double ScreenWidth = MediaQuery.of(context).size.width;
-    double ScreenHeight = MediaQuery.of(context).size.height;
+     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap:() => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -54,31 +69,40 @@ class _SingpageState extends State<Singpage> {
           
            padding: const EdgeInsets.only(left: 10, right: 10),
            child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                child:Column(
-                  children: [
-                Text('HELLO',style: TextStyle(
-              color:  const Color(0xFF05406F),
-              fontSize: 50,
-              fontWeight: FontWeight.bold,
-              ),) ,
-              Text('Please enter Login details!!!',style: TextStyle(
-                color: Colors.black,
-                fontSize: 12
-              ),)
-                  ],
-                )),
               SizedBox(height: 150,),
-              Container(
-                height: 45,
+              Align(
+                alignment: Alignment.center,
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'HELLO\n',style: GoogleFonts.poppins(
+                        color:  const Color(0xFF05406F),
+                        fontSize: 80,
+                        fontWeight: FontWeight.bold,
+                        ),
+                        ) ,
+                
+                        TextSpan(
+                        text: 'Please Enter Login Details!!!',style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18))
+                                ])
+                  ),
+              ),
+              SizedBox(height: 30,),
+              SizedBox(
+                height: 55,
                 width: double.infinity,
                child: TextFormField(
                 controller: useremailcontroller,
               keyboardType: TextInputType.emailAddress,
               
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.email,color: const Color(0xFF05406F),),
+                  prefixIcon: Icon(Icons.email,color: CustomColor.primaryColor),
                   border: OutlineInputBorder(
                     
                     borderRadius: BorderRadius.circular(8),
@@ -102,8 +126,8 @@ class _SingpageState extends State<Singpage> {
               
               ),
               SizedBox(height: 35,),
-              Container(
-                height: 45,
+              SizedBox(
+                height: 55,
                 child: TextFormField(
                   controller: userpassword,
                   obscureText: isvisible,

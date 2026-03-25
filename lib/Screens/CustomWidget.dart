@@ -1,6 +1,6 @@
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:recordexpenditure/Screens/TransactionsDetatils.dart';
+
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -9,10 +9,14 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth  = MediaQuery.sizeOf(context).width;
+  final screenHeight = MediaQuery.sizeOf(context).height;
+  final orientation  = MediaQuery.of(context).orientation;
+  final paddingBottom = MediaQuery.of(context).padding.bottom;
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10),
       child: SizedBox(
-        height: 55,
+        height: screenHeight*0.06,
         width: double.infinity,
         child: ElevatedButton(
            style: ElevatedButton.styleFrom(

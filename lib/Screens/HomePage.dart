@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:recordexpenditure/Screens/CustomWidget.dart';
-import 'package:recordexpenditure/Screens/SingPage.dart';
+import 'package:recordexpenditure/Screens/BottomNavigationPage.dart';
+import 'package:recordexpenditure/Screens/WelcomePage.dart';
 
 
 class Homepage extends StatefulWidget {
@@ -8,69 +9,39 @@ class Homepage extends StatefulWidget {
 
   @override
   State<Homepage> createState() => _HomepageState();
-}
-
-class _HomepageState extends State<Homepage> {
+}class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
+   final screenWidth  = MediaQuery.sizeOf(context).width;
+  final screenHeight = MediaQuery.sizeOf(context).height;
+  final orientation  = MediaQuery.of(context).orientation;
+  final paddingBottom = MediaQuery.of(context).padding.bottom;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.only(left: 5, right: 5),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 80, right: 20),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Singpage()));
-                  },
-                  child: Container(
-                    child: Text('Skip'),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 90,),
-            Container(child: Text('WELCOME',style: TextStyle(
-              color:  const Color(0xFF05406F),
-              fontSize: 50,
-              fontWeight: FontWeight.bold
-            ),),),
-              RichText(
-          textAlign: TextAlign.center,
-          text: const TextSpan(
-            children: [
-              TextSpan(
-        text: 'Welcome to smartExpenses\n',
-        style: TextStyle(
-          fontSize: 26,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-        ),
-              ),
-              TextSpan(
-        text: 'Your Simple and Powerful tool for managing everyday expenses.',
-        style: TextStyle(
-          fontSize: 16,
-          color: Colors.black
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
         
-        ),
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 45,),
-        CustomButton(text: 'Welcome', ontap: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>Singpage()));
+        builder: (context, snapshot) {
+        
+        if(snapshot.connectionState==ConnectionState.waiting){
+          return Center(child: CircularProgressIndicator(),);
+
+        }
+        if(snapshot.hasError){
+          return Center(
+            child: Text('Unable to Log in'),
+          );
+        }
+        if(snapshot.hasData){
+          return Bottomnavigationpage();
+        }
+        else{
+          return Welcomepage();
+        }
         })
-      
-          ],
-        ),
-      ),
     );
-  }
-}
+  }}
+
+
+
 
