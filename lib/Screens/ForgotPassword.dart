@@ -76,7 +76,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
             ),),
           ),
           SizedBox(height: 19,),
-          Container(
+          SizedBox(
           height: 55,
           child: TextFormField(
             

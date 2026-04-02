@@ -51,11 +51,13 @@ Future <DocumentSnapshot<Map<String, dynamic>>> getUserDetails() async {
               Map<String, dynamic> ? User = snapshot.data!.data();
               return Column(
                 children: [
-                  Text(User!['email'] ?? ""),
+                 profileTile('Name', Icons.person, User?['Name'] ?? "N/A"),
                   SizedBox(height: 24,),
-                  Text(User['Name'])
-                ],
-              );
+                  profileTile('Email', Icons.email, User?['Email'] ?? currentUser?.email?? "N/A"),
+                  SizedBox(height: 24,),
+                  profileTile('Phone Number', Icons.phone, User?['phone'] ?? "N/A")
+                
+             ] );
            }
            else{
            return Text('No data');
@@ -67,4 +69,24 @@ Future <DocumentSnapshot<Map<String, dynamic>>> getUserDetails() async {
         ),
     );
   }
+   Widget profileTile (String label, IconData icon, String value){
+   return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Icon(icon, color: CustomColor.primaryColor,),
+      SizedBox(width: 8,),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+            Text(label, style: TextStyle(
+        color: Colors.black,
+      ),),
+      SizedBox(width: 8,),
+      Text(value, style: TextStyle(color: Colors.black),)
+        ],
+      )
+    ],
+   );
+   }
 }
+

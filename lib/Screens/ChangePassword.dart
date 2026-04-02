@@ -6,7 +6,7 @@ import 'package:recordexpenditure/Screens/CustomWidget.dart';
 
 class Changepassword extends StatefulWidget {
   
-  Changepassword({super.key});
+  const Changepassword({super.key});
 
   @override
   State<Changepassword> createState() => _ChangepasswordState();

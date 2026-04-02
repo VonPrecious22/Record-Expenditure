@@ -36,7 +36,7 @@ class _SingpageState extends State<Singpage> {
   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Bottomnavigationpage()),
   (route) => false);
     }
-    on FirebaseAuthException catch(e){
+    on FirebaseAuthException {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       backgroundColor: CustomColor.primaryColor,
       content: Text(' Unable to Login, Wrong password!!')));
@@ -54,6 +54,7 @@ class _SingpageState extends State<Singpage> {
     userpassword.dispose();
     super.dispose();
   }
+  @override
   Widget build(BuildContext context) {
      double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;

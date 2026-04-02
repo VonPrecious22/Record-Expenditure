@@ -53,8 +53,9 @@ class _MenupageState extends State<Menupage> {
         
         SnackBar(content: AnimatedContainer(
         
-        child: Text('Your\'re are offline. Transaction not saved.'),
-        duration: Duration(microseconds: 2,))));
+        duration: Duration(microseconds: 2,),
+        
+        child: Text('Your\'re are offline. Transaction not saved.'))));
         Navigator.pop(context);
     }
     }
@@ -180,7 +181,7 @@ class _MenupageState extends State<Menupage> {
                               },
                               dropdownColor: Colors.white,
                               hint: Text('Cash In'),
-                              value: selectedList,
+                              initialValue: selectedList,
                               items: cashInCategories
                                   .map(
                                     (element) => DropdownMenuItem(
@@ -205,7 +206,7 @@ class _MenupageState extends State<Menupage> {
                               },
                               dropdownColor: Colors.white,
                               hint: Text('Cash out'),
-                              value: selectedItem,
+                              initialValue: selectedItem,
                               items: cashOutCategories
                                   .map(
                                     (e) => DropdownMenuItem(
@@ -394,7 +395,7 @@ class _MenupageState extends State<Menupage> {
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          "${DateTime.now().toIso8601String().split('T').first}",
+                          DateTime.now().toIso8601String().split('T').first,
                           style: TextStyle(color: Colors.white60),
                         ),
                       ],

@@ -43,7 +43,7 @@ class _SettingpageState extends State<Settingpage> {
               leading: Icon(Icons.dark_mode),
               title: Text('Dark Mode',style: TextStyle(color: Colors.black),),
              trailing: Switch(
-              activeColor:  CustomColor.primaryColor,
+              activeThumbColor:  CustomColor.primaryColor,
               inactiveThumbColor: Colors.grey.shade100,
               value: isOn, onChanged: (value){
                 setState(() {

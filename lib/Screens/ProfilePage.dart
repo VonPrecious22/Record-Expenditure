@@ -191,7 +191,7 @@ class CustomProfile extends StatelessWidget {
   final Widget icon;
   final String text; 
    final void Function() ontap;
-  CustomProfile({super.key, required this.icon, required this.text, required this.ontap});
+  const CustomProfile({super.key, required this.icon, required this.text, required this.ontap});
 
   @override
   Widget build(BuildContext context) {
