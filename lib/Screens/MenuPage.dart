@@ -20,23 +20,28 @@ class _MenupageState extends State<Menupage> {
   final FirebaseAuth name = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
 
-  void SaveTransaction() async {
-    if (_formKey.currentState!.validate()) {
+  void SaveTransaction( BuildContext modalContext) async {
+    if (_formKey.currentState!.validate())  {
       double amount = double.tryParse(amountController.text) ?? 0.0;
       try {
         await Services.saveTransaction(
         note: descriptionController.text.trim(),
-        amount: isIncome ? amount : amount,
+        amount: amount,
         type: isIncome ? "Income" : "Expense",
         category: isIncome ? selectedList ?? "" : selectedItem ?? "",
         createdAt: selectedDate,
       );
-      ScaffoldMessenger.of(context).showSnackBar(
+      if(Navigator.canPop(modalContext)){
+        Navigator.pop(modalContext);
+      }
+     if (mounted){
+       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Transaction Added"),
           backgroundColor: CustomColor.primaryColor,
         ),
       );
+      if (mounted) Navigator.pop(modalContext);
       descriptionController.clear();
       amountController.clear();
       setState(() {
@@ -46,10 +51,15 @@ class _MenupageState extends State<Menupage> {
       setState(() {
         selectedDate = DateTime.now();
       });
-      Navigator.pop(context);
+     }
+      
     } 
     catch(e){
-      ScaffoldMessenger.of(context).showSnackBar(
+      if(Navigator.canPop(modalContext)){
+        Navigator.pop(context);
+      }
+     if(mounted){
+       ScaffoldMessenger.of(context).showSnackBar(
         
         SnackBar(content: AnimatedContainer(
         
@@ -57,6 +67,7 @@ class _MenupageState extends State<Menupage> {
         
         child: Text('Your\'re are offline. Transaction not saved.'))));
         Navigator.pop(context);
+     }
     }
     }
   
@@ -124,10 +135,10 @@ class _MenupageState extends State<Menupage> {
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               ),
-              builder: (context) {
+              builder: (modalContext) {
                 return Padding(
                   padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
+                    bottom: MediaQuery.of(modalContext).viewInsets.bottom,
                     left: 16,
                     right: 16,
                     top: 20,
@@ -338,7 +349,7 @@ class _MenupageState extends State<Menupage> {
                               backgroundColor: const Color(0xFF1DA0C1),
                               minimumSize: const Size(double.infinity, 50),
                             ),
-                            onPressed: SaveTransaction,
+                            onPressed:()=> SaveTransaction(context),
                             child: const Text("Save Transaction"),
                           ),
                           const SizedBox(height: 20),
