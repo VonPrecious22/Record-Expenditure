@@ -46,7 +46,7 @@ class _MenupageState extends State<Menupage> {
       setState(() {
         selectedDate = DateTime.now();
       });
-      
+      Navigator.pop(context);
     } 
     catch(e){
       ScaffoldMessenger.of(context).showSnackBar(
@@ -429,7 +429,7 @@ class _MenupageState extends State<Menupage> {
                       );
                     }
 
-                    // ── Improved: show white background + message during long wait ──
+                    // // ── Improved: show white background + message during long wait ──
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(
                         child: Column(

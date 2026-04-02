@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,10 +28,21 @@ class _SingUPPageState extends State<SingUPPage> {
   }
 
   try {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
+    //creating a user account
+  UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: email, 
+    password: password
     );
+    await FirebaseFirestore.instance
+    .collection("User")
+    .doc(userCredential.user!.uid)
+    .set({
+      'Name': name,
+      'email': email,
+      'phone': phone,
+      'createdAt': DateTime.now,
+    });
+    
 
     showSnackBar(
       
