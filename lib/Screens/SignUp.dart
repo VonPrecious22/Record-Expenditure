@@ -23,7 +23,11 @@ class _SingUPPageState extends State<SingUPPage> {
   
 
   if (email.isEmpty || name.isEmpty || password.isEmpty || phone.isEmpty) {
-    showSnackBar(context, "Please fill the form");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: CustomColor.primaryColor,
+        content: Text('Please fill the form!!!'))
+    );
     return;
   }
 
@@ -33,17 +37,16 @@ class _SingUPPageState extends State<SingUPPage> {
     email: email, 
     password: password
     );
+    final User = userCredential.user!.uid;
     await FirebaseFirestore.instance
     .collection("User")
-    .doc(userCredential.user!.uid)
+    .doc(User)
     .set({
       'Name': name,
       'email': email,
       'phone': phone,
       'createdAt': FieldValue.serverTimestamp(),
     });
-    
-
     showSnackBar(
       
       context, "Account created successfully!",);
@@ -62,7 +65,9 @@ void showSnackBar(
 ){
   ScaffoldMessenger.of(context).showSnackBar(
     
-    SnackBar(content: Text(Error)));
+    SnackBar(
+      backgroundColor: CustomColor.primaryColor,
+      content: Text(Error)));
 }
   
   bool isvisible = false;
