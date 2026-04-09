@@ -82,6 +82,25 @@ try {
   print(e);
 }
 }
+Future<void> UpdateProfile({
+  required String Name,
+  required String email,
+  required String number,
+}) async {
+ try{
+   String user = FirebaseAuth.instance.currentUser!.uid;
+   await FirebaseFirestore.instance.
+   collection('User').
+   doc(user)
+   .update({
+    'Name': Name,
+    'Email': email,
+    'phone': number
+   });
+ } catch(e){
+  throw Exception('Failed to updated detaills!! $e');
+ }
+}
  
  }
 
