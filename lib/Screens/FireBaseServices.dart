@@ -71,12 +71,16 @@ class Firebaseservices {
  Future<void> deleteTransaction(String transactionId) async {
   final userId = FirebaseAuth.instance.currentUser!.uid;
 
-  await FirebaseFirestore.instance
+try {
+    await FirebaseFirestore.instance
       .collection('UsersTransactions')
       .doc(userId)
       .collection('transactions')
       .doc(transactionId)
       .delete();
+} catch (e){
+  print(e);
+}
 }
  
  }

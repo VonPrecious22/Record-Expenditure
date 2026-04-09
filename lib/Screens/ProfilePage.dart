@@ -15,16 +15,16 @@ class Profilepage extends StatefulWidget {
   State<Profilepage> createState() => _ProfilepageState();
 }
 class _ProfilepageState extends State<Profilepage> {
-  File? _selectedImage;
-  final ImagePicker _picker = ImagePicker();
+  File? selectedImage;
+  final ImagePicker picker = ImagePicker();
  
   
- Future<void> _pickAnImage(ImageSource source) async {
+ Future<void> pickAnImage(ImageSource source) async {
    try{
-    final pickedImage = await _picker.pickImage(source: source);
+    final pickedImage = await picker.pickImage(source: source);
    if(pickedImage != null){
     setState(() {
-      _selectedImage = File(pickedImage.path);
+      selectedImage = File(pickedImage.path);
     });
    }
    }on PlatformException {
@@ -35,7 +35,7 @@ class _ProfilepageState extends State<Profilepage> {
     print(e);
    }
   }
-  Future<void> _showOptionToPickAnImage(BuildContext context) async{
+  Future<void> showOptionToPickAnImage(BuildContext context) async{
    final  ImageSource? source = await showModalBottomSheet<ImageSource>(
     backgroundColor: Colors.white,
       context: context,
@@ -64,7 +64,7 @@ class _ProfilepageState extends State<Profilepage> {
         ));
        });
        if(source != null){
-        await _pickAnImage(source);
+        await pickAnImage(source);
        }
         }
 
@@ -110,8 +110,8 @@ class _ProfilepageState extends State<Profilepage> {
                     )
                   ]
                 ),
-                child: _selectedImage != null ? 
-                Image.file(_selectedImage!,
+                child: selectedImage != null ? 
+                Image.file(selectedImage!,
                 fit: BoxFit.cover,)
                 : Icon(Icons.person, size: 100,),
               ),
@@ -124,7 +124,7 @@ class _ProfilepageState extends State<Profilepage> {
                   color: Colors.white,
                 focusColor: CustomColor.primaryColor,
                 onPressed: (){
-                _showOptionToPickAnImage(context);
+                showOptionToPickAnImage(context);
                             }, icon: Icon(Icons.camera_alt)),
               ),
               ],
@@ -132,11 +132,7 @@ class _ProfilepageState extends State<Profilepage> {
             ),
             
             SizedBox(height: 14,),
-            Text('Atud Precious Tegum',style: TextStyle(
-              color: Colors.black, 
-              fontSize: 17,
-              fontWeight: FontWeight.bold
-            ),),
+
             SizedBox(height: 12,),
             CustomProfile(icon: Icon(Icons.person), text: 'Profile Details', ontap: (){
              Navigator.push(context, MaterialPageRoute(builder: (context)=>Profiledetailpage()));
