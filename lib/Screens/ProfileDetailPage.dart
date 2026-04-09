@@ -49,7 +49,8 @@ Future <DocumentSnapshot<Map<String, dynamic>>> getUserDetails() async {
   Future<void> showOptionToPickAnImage(BuildContext context)async{
     final ImageSource? source = await showModalBottomSheet(
       context: context, 
-    
+      enableDrag: true,
+      showDragHandle: true,
       builder: (context){
         return SafeArea(
           child: Column(
