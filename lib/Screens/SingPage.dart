@@ -177,9 +177,15 @@ class _SingpageState extends State<Singpage> {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context)=>SingUPPage()));
                   },
-                  child: Text('Sign Up',style: TextStyle(color: const Color(0xFF05406F)),))
-               
-              ],)
+                  child: Text('Sign Up',style: TextStyle(color: const Color(0xFF05406F)),)),
+              
+              ],),
+
+              SizedBox(height: 25,),
+             TextButton(onPressed: (){
+              
+             }, child:Text('Sign in with google', style: TextStyle(color: const Color(0xFF05406F)),))
+              
             ],
            ),
          ),

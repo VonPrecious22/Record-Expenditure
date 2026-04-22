@@ -50,7 +50,11 @@ class _SingUPPageState extends State<SingUPPage> {
     showSnackBar(
       
       context, "Account created successfully!",);
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>Bottomnavigationpage()));
+Navigator.pushAndRemoveUntil(
+  context,
+  MaterialPageRoute(builder: (context) => Bottomnavigationpage()),
+  (Route<dynamic> route) => false, // Remove all previous routes.
+);
   } 
   on FirebaseAuthException catch (e) {
     showSnackBar(context, e.message ?? "Signup failed");
@@ -272,7 +276,25 @@ void showSnackBar(
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Singpage()));
                     },
                     child: Text('Sign In',style: TextStyle(color:  const Color(0xFF05406F),),))
-                ],)
+                ],),
+                SizedBox(height: 34,),
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Container(color: Colors.black,),
+                        Text('or'),
+                        Container(color: Colors.black,)
+                      ],
+                    ),
+                    SizedBox(height: 34,),
+                    TextButton(onPressed: (){}, child: Row(
+                    children: [
+                      
+                    ],
+                    ))
+                  ],
+                )
               ],
             ),
           ),

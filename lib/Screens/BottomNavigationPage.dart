@@ -8,12 +8,13 @@ class Bottomnavigationpage extends StatefulWidget {
   @override
   State<Bottomnavigationpage> createState() => _BottomnavigationpageState();
 }
- var currentIndex = 0;
+ 
+class _BottomnavigationpageState extends State<Bottomnavigationpage> {
+  int currentIndex = 0;
  final List<Widget> pages =[
   Menupage(),
   Settingpage()
  ];
-class _BottomnavigationpageState extends State<Bottomnavigationpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +22,7 @@ class _BottomnavigationpageState extends State<Bottomnavigationpage> {
       bottomNavigationBar: BottomNavigationBar(
         
         backgroundColor: Colors.white,
-        elevation: 0,
+        elevation: 2,
         selectedItemColor: Color(0xFF05406F),
         unselectedItemColor: Colors.black,
         currentIndex: currentIndex,

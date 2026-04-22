@@ -98,11 +98,14 @@ class _SettingpageState extends State<Settingpage> {
                     
                     
                   ),
-                  onPressed: () {
-                  FirebaseAuth.instance.signOut();
-                  
-                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> Welcomepage()), (route)=> false, );
-                                 },
+                  onPressed: () async {
+  await FirebaseAuth.instance.signOut();
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (context) => Welcomepage()),
+    (route) => false, 
+  );
+},
                                  child: Text('Log Out',style: TextStyle(color: Colors.red),),),
               ]);
               

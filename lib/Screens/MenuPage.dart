@@ -31,34 +31,31 @@ class _MenupageState extends State<Menupage> {
         category: isIncome ? selectedList ?? "" : selectedItem ?? "",
         createdAt: selectedDate,
       );
-      if(Navigator.canPop(modalContext)){
-        Navigator.pop(modalContext);
-      }
      if (mounted){
+     Navigator.of(modalContext).pop();
        ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Transaction Added"),
           backgroundColor: CustomColor.primaryColor,
         ),
       );
-      if (mounted) Navigator.pop(modalContext);
+     
       descriptionController.clear();
       amountController.clear();
       setState(() {
         selectedItem = null;
         selectedList = null;
-      });
-      setState(() {
         selectedDate = DateTime.now();
       });
+     
      }
       
     } 
     catch(e){
-      if(Navigator.canPop(modalContext)){
-        Navigator.pop(context);
-      }
-     if(mounted){
+      if(mounted){
+        
+    
+     
        ScaffoldMessenger.of(context).showSnackBar(
         
         SnackBar(content: AnimatedContainer(
@@ -66,8 +63,8 @@ class _MenupageState extends State<Menupage> {
         duration: Duration(microseconds: 2,),
         
         child: Text('Your\'re are offline. Transaction not saved.'))));
-        Navigator.pop(context);
-     }
+       
+       }
     }
     }
   
@@ -135,10 +132,10 @@ class _MenupageState extends State<Menupage> {
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               ),
-              builder: (modalContext) {
+              builder: (BuildContext sheetContext) {
                 return Padding(
                   padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(modalContext).viewInsets.bottom,
+                    bottom: MediaQuery.of(sheetContext).viewInsets.bottom,
                     left: 16,
                     right: 16,
                     top: 20,
@@ -349,7 +346,7 @@ class _MenupageState extends State<Menupage> {
                               backgroundColor: const Color(0xFF1DA0C1),
                               minimumSize: const Size(double.infinity, 50),
                             ),
-                            onPressed:()=> SaveTransaction(context),
+                            onPressed:()=> SaveTransaction(sheetContext),
                             child: const Text("Save Transaction"),
                           ),
                           const SizedBox(height: 20),
